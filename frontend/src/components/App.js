@@ -13,7 +13,8 @@ import { useUserState } from "../context/UserContext";
 
 export default function App() {
   // global
-  var { isAuthenticated } = useUserState();
+  // var { isAuthenticated } = useUserState();
+  var isAuthenticated = true;
 
   return (
     <HashRouter>
@@ -37,7 +38,7 @@ export default function App() {
     return (
       <Route
         {...rest}
-        render={props =>
+        render={(props) =>
           isAuthenticated ? (
             React.createElement(component, props)
           ) : (
@@ -59,7 +60,7 @@ export default function App() {
     return (
       <Route
         {...rest}
-        render={props =>
+        render={(props) =>
           isAuthenticated ? (
             <Redirect
               to={{
