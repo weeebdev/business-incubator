@@ -26,6 +26,7 @@ import Maps from "../../pages/maps";
 import Tables from "../../pages/tables";
 import Icons from "../../pages/icons";
 import Charts from "../../pages/charts";
+import Poll from "../../pages/poll";
 
 // context
 import { useLayoutState } from "../../context/LayoutContext";
@@ -60,6 +61,7 @@ function Layout(props) {
             <Route path="/app/ui/maps" component={Maps} />
             <Route path="/app/ui/icons" component={Icons} />
             <Route path="/app/ui/charts" component={Charts} />
+            <Route path="/app/poll" component={Poll} />
           </Switch>
           {/* <Box
               mt={5}
