@@ -1,0 +1,25 @@
+version: "3"
+services:
+  server:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: bi-api
+    environment:
+      - PORT=${PORT:-8080}
+    ports:
+      - 8080:${PORT:-8080}
+    depends_on:
+      database:
+        condition: service_healthy
+
+  database:
+    image: "postgres"
+    container_name: bi_psql
+    env_file:
+      - ./backend/dev.env
+    healthcheck:
+      test: /usr/bin/pg_isready
+      interval: 5s
+      timeout: 10s
+      retries: 120
