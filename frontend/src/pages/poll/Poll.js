@@ -22,6 +22,7 @@ import {
   setData,
   setErrors,
 } from "../../context/PollContext";
+import { entriesService } from "../../services/entries";
 
 const customSchema = {
   type: "object",
@@ -60,6 +61,13 @@ export default function Poll(props) {
   const { data, errors } = usePollState();
   const dispatch = usePollDispatch();
 
+  const handleReport = () => {
+    console.log("posting");
+    entriesService
+      .createEntry(data)
+      .then((res) => [console.log("success"), setData(dispatch, null)]);
+  };
+
   return (
     <>
       <PageTitle
@@ -70,6 +78,7 @@ export default function Poll(props) {
             size="medium"
             color="secondary"
             disabled={Boolean(errors?.length)}
+            onClick={handleReport}
           >
             Report
           </Button>

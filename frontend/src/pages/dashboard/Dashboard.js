@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Grid,
   LinearProgress,
@@ -34,6 +34,11 @@ import Dot from "../../components/Sidebar/components/Dot";
 import Table from "./components/Table/Table";
 import BigStat from "./components/BigStat/BigStat";
 
+import { entriesService } from "../../services/entries";
+import AnalyticalSolution from "./components/Histogram/AnalyticalSoluion";
+import Histogram from "./components/Histogram/Histogram";
+import EntryPieChart from "./components/Histogram/EntryPieChart";
+
 const mainChartData = getMainChartData();
 const PieChartData = [
   { name: "Group A", value: 400, color: "primary" },
@@ -45,6 +50,18 @@ const PieChartData = [
 export default function Dashboard(props) {
   var classes = useStyles();
   var theme = useTheme();
+
+  var [data, setData] = useState(null);
+
+  useEffect(() => {
+    entriesService.getEntries().then((data) => {
+      setData(data);
+    });
+  }, []);
+
+  useEffect(() => {
+    console.log("data", data);
+  }, [data]);
 
   // local
   var [mainChartState, setMainChartState] = useState("monthly");
@@ -60,7 +77,7 @@ export default function Dashboard(props) {
         }
       />
       <Grid container spacing={4}>
-        <Grid item lg={3} md={4} sm={6} xs={12}>
+        {/* <Grid item lg={3} md={4} sm={6} xs={12}>
           <Widget
             title="Visits Today"
             upperTitle
@@ -414,7 +431,33 @@ export default function Dashboard(props) {
           <Grid item md={4} sm={6} xs={12} key={stat.product}>
             <BigStat {...stat} />
           </Grid>
-        ))}
+        ))} */}
+        {data?.length && (
+          <>
+            <Grid item md={4} sm={6} xs={12}>
+              <Histogram
+                data={data}
+                xName="year"
+                yName="sum"
+                title="Finance - time"
+              />
+            </Grid>
+            <Grid item md={4} sm={6} xs={12}>
+              <Histogram
+                data={data}
+                xName="year"
+                yName="number"
+                title="Number of projects - time"
+              />
+            </Grid>
+            <Grid item md={4} sm={6} xs={12}>
+              <EntryPieChart data={data} title="Finances by project" />
+            </Grid>
+            <Grid item xs={12}>
+              <AnalyticalSolution data={data} />
+            </Grid>
+          </>
+        )}
         {/* <Grid item xs={12}>
           <Widget
             title="Support Requests"
