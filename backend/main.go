@@ -9,6 +9,7 @@ import (
 	_entryUcase "bi-api/entry/usecase"
 
 	"github.com/gofiber/fiber/v2"
+	"github.com/gofiber/fiber/v2/middleware/cors"
 	"github.com/spf13/viper"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
@@ -48,6 +49,7 @@ func main() {
 	}
 
 	app := fiber.New()
+	app.Use(cors.New())
 
 	entryRepo := _entryRepo.NewPsqlEntryRepository(db)
 
