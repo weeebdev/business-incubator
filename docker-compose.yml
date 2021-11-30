@@ -7,6 +7,7 @@ services:
     container_name: bi-api
     environment:
       - PORT=${PORT:-8080}
+      - ENV=${ENV}
     ports:
       - 8080:${PORT:-8080}
     depends_on:
@@ -23,3 +24,13 @@ services:
       interval: 5s
       timeout: 10s
       retries: 120
+
+  web-server:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: bi-front
+    ports:
+      - 8081:80
+    depends_on:
+      - server
