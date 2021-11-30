@@ -30,6 +30,7 @@ import Poll from "../../pages/poll";
 
 // context
 import { useLayoutState } from "../../context/LayoutContext";
+import InsertData from "../../pages/poll/InsertData";
 
 function Layout(props) {
   var classes = useStyles();
@@ -62,6 +63,7 @@ function Layout(props) {
             <Route path="/app/ui/icons" component={Icons} />
             <Route path="/app/ui/charts" component={Charts} /> */}
             <Route path="/app/poll" component={Poll} />
+            <Route path="/app/insert-data" component={InsertData} />
           </Switch>
           {/* <Box
               mt={5}

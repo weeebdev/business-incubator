@@ -22,7 +22,7 @@ import {
   YAxis,
   XAxis,
 } from "recharts";
-import { useLocation } from "react-router-dom";
+import { useLocation, useHistory } from "react-router-dom";
 
 // styles
 import useStyles from "./styles";
@@ -75,6 +75,7 @@ export default function Dashboard(props) {
   // var [mainChartState, setMainChartState] = useState("monthly");
 
   const { search } = useLocation();
+  const history = useHistory();
 
   const query = React.useMemo(() => new URLSearchParams(search), [search]);
 
@@ -88,8 +89,13 @@ export default function Dashboard(props) {
       <PageTitle
         title="Dashboard"
         button={
-          <Button variant="contained" size="medium" color="secondary">
-            Latest Reports
+          <Button
+            variant="contained"
+            size="medium"
+            color="secondary"
+            onClick={() => history.push("/app/insert-data")}
+          >
+            Insert Data
           </Button>
         }
       />
