@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { PieChart, Pie, Sector, Cell, ResponsiveContainer } from "recharts";
 import { Select, MenuItem, OutlinedInput } from "@material-ui/core";
 
@@ -17,6 +17,12 @@ export default function EntryPieChart(props) {
 
   // local
   var [value, setValue] = useState(defaultValue || data[0].id);
+
+  useEffect(() => {
+    if (typeof defaultValue === "number" && !isNaN(defaultValue)) {
+      setValue(defaultValue);
+    }
+  }, [defaultValue]);
 
   return (
     <Widget

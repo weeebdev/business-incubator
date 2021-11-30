@@ -6,6 +6,7 @@ import {
   OutlinedInput,
   MenuItem,
   Button,
+  CircularProgress,
 } from "@material-ui/core";
 import { useTheme } from "@material-ui/styles";
 import {
@@ -21,6 +22,7 @@ import {
   YAxis,
   XAxis,
 } from "recharts";
+import { useLocation } from "react-router-dom";
 
 // styles
 import useStyles from "./styles";
@@ -39,19 +41,25 @@ import AnalyticalSolution from "./components/Histogram/AnalyticalSoluion";
 import Histogram from "./components/Histogram/Histogram";
 import EntryPieChart from "./components/Histogram/EntryPieChart";
 
-const mainChartData = getMainChartData();
-const PieChartData = [
-  { name: "Group A", value: 400, color: "primary" },
-  { name: "Group B", value: 300, color: "secondary" },
-  { name: "Group C", value: 300, color: "warning" },
-  { name: "Group D", value: 200, color: "success" },
-];
+// const mainChartData = getMainChartData();
+// const PieChartData = [
+//   { name: "Group A", value: 400, color: "primary" },
+//   { name: "Group B", value: 300, color: "secondary" },
+//   { name: "Group C", value: 300, color: "warning" },
+//   { name: "Group D", value: 200, color: "success" },
+// ];
+
+// function that parses number from string
+const parseNumber = (value) => {
+  return parseInt(value?.replace(/\D/g, ""));
+};
 
 export default function Dashboard(props) {
   var classes = useStyles();
   var theme = useTheme();
 
-  var [data, setData] = useState(null);
+  const [data, setData] = useState(null);
+  const [dataId, setDataId] = useState(null);
 
   useEffect(() => {
     entriesService.getEntries().then((data) => {
@@ -59,12 +67,21 @@ export default function Dashboard(props) {
     });
   }, []);
 
-  useEffect(() => {
-    console.log("data", data);
-  }, [data]);
+  // useEffect(() => {
+  //   console.log("data", data);
+  // }, [data]);
 
   // local
-  var [mainChartState, setMainChartState] = useState("monthly");
+  // var [mainChartState, setMainChartState] = useState("monthly");
+
+  const { search } = useLocation();
+
+  const query = React.useMemo(() => new URLSearchParams(search), [search]);
+
+  useEffect(() => {
+    console.log("query", query.get("dataId"));
+    setDataId(parseNumber(query.get("dataId")));
+  }, [query]);
 
   return (
     <>
@@ -432,7 +449,7 @@ export default function Dashboard(props) {
             <BigStat {...stat} />
           </Grid>
         ))} */}
-        {data?.length && (
+        {data?.length ? (
           <>
             <Grid item md={4} sm={6} xs={12}>
               <Histogram
@@ -440,6 +457,7 @@ export default function Dashboard(props) {
                 xName="year"
                 yName="sum"
                 title="Finance - time"
+                defaultValue={dataId}
               />
             </Grid>
             <Grid item md={4} sm={6} xs={12}>
@@ -448,15 +466,34 @@ export default function Dashboard(props) {
                 xName="year"
                 yName="number"
                 title="Number of projects - time"
+                defaultValue={dataId}
               />
             </Grid>
             <Grid item md={4} sm={6} xs={12}>
-              <EntryPieChart data={data} title="Finances by project" />
+              <EntryPieChart
+                data={data}
+                title="Finances by project"
+                defaultValue={dataId}
+              />
             </Grid>
             <Grid item xs={12}>
-              <AnalyticalSolution data={data} />
+              <AnalyticalSolution data={data} defaultValue={dataId} />
             </Grid>
           </>
+        ) : (
+          <Grid
+            item
+            xs={12}
+            style={{
+              width: "100%",
+              height: "100%",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            <CircularProgress size={50} />
+          </Grid>
         )}
         {/* <Grid item xs={12}>
           <Widget
@@ -474,40 +511,40 @@ export default function Dashboard(props) {
 }
 
 // #######################################################################
-function getRandomData(length, min, max, multiplier = 10, maxDiff = 10) {
-  var array = new Array(length).fill();
-  let lastValue;
+// function getRandomData(length, min, max, multiplier = 10, maxDiff = 10) {
+//   var array = new Array(length).fill();
+//   let lastValue;
 
-  return array.map((item, index) => {
-    let randomValue = Math.floor(Math.random() * multiplier + 1);
+//   return array.map((item, index) => {
+//     let randomValue = Math.floor(Math.random() * multiplier + 1);
 
-    while (
-      randomValue <= min ||
-      randomValue >= max ||
-      (lastValue && randomValue - lastValue > maxDiff)
-    ) {
-      randomValue = Math.floor(Math.random() * multiplier + 1);
-    }
+//     while (
+//       randomValue <= min ||
+//       randomValue >= max ||
+//       (lastValue && randomValue - lastValue > maxDiff)
+//     ) {
+//       randomValue = Math.floor(Math.random() * multiplier + 1);
+//     }
 
-    lastValue = randomValue;
+//     lastValue = randomValue;
 
-    return { value: randomValue };
-  });
-}
+//     return { value: randomValue };
+//   });
+// }
 
-function getMainChartData() {
-  var resultArray = [];
-  var tablet = getRandomData(31, 3500, 6500, 7500, 1000);
-  var desktop = getRandomData(31, 1500, 7500, 7500, 1500);
-  var mobile = getRandomData(31, 1500, 7500, 7500, 1500);
+// function getMainChartData() {
+//   var resultArray = [];
+//   var tablet = getRandomData(31, 3500, 6500, 7500, 1000);
+//   var desktop = getRandomData(31, 1500, 7500, 7500, 1500);
+//   var mobile = getRandomData(31, 1500, 7500, 7500, 1500);
 
-  for (let i = 0; i < tablet.length; i++) {
-    resultArray.push({
-      tablet: tablet[i].value,
-      desktop: desktop[i].value,
-      mobile: mobile[i].value,
-    });
-  }
+//   for (let i = 0; i < tablet.length; i++) {
+//     resultArray.push({
+//       tablet: tablet[i].value,
+//       desktop: desktop[i].value,
+//       mobile: mobile[i].value,
+//     });
+//   }
 
-  return resultArray;
-}
+//   return resultArray;
+// }

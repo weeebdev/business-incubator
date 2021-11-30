@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   BarChart,
   Bar,
@@ -46,6 +46,12 @@ export default function AnalyticalSolution(props) {
 
   // local
   var [value, setValue] = useState(defaultValue || data[0].id);
+
+  useEffect(() => {
+    if (typeof defaultValue === "number" && !isNaN(defaultValue)) {
+      setValue(defaultValue);
+    }
+  }, [defaultValue]);
 
   return (
     <Widget

@@ -23,6 +23,7 @@ import {
   setErrors,
 } from "../../context/PollContext";
 import { entriesService } from "../../services/entries";
+import { useHistory } from "react-router";
 
 const customSchema = {
   type: "object",
@@ -60,12 +61,16 @@ const customSchema = {
 export default function Poll(props) {
   const { data, errors } = usePollState();
   const dispatch = usePollDispatch();
+  const history = useHistory();
 
   const handleReport = () => {
     console.log("posting");
     entriesService
       .createEntry(data)
-      .then((res) => [console.log("success"), setData(dispatch, null)]);
+      .then((res) => [
+        history.push(`/app/dashboard?dataId=${res.id}`),
+        setData(dispatch, null),
+      ]);
   };
 
   return (
