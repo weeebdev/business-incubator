@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"log"
+	"os"
 
 	_entryDelivery "bi-api/entry/delivery/http"
 	_entryRepo "bi-api/entry/repository"
@@ -26,10 +27,15 @@ type Config struct {
 }
 
 func init() {
-	viper.SetConfigFile("dev.env")
+	env, ok := os.LookupEnv("ENV")
+	if !ok {
+		env = "dev"
+	}
+	viper.SetConfigFile(fmt.Sprintf("%s.env", env))
 	viper.AutomaticEnv()
 
 	if err := viper.ReadInConfig(); err != nil {
+		fmt.Printf("main: %s\n", err)
 		return
 	}
 }
