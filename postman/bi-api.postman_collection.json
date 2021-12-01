@@ -1,0 +1,280 @@
+{
+	"info": {
+		"_postman_id": "cb0fcd0e-ee86-49cc-935a-3b3f77e98747",
+		"name": "bi-api",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "GET All",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": ""
+				}
+			},
+			"response": [
+				{
+					"name": "GET All",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/entries",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"entries"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Mon, 29 Nov 2021 09:35:28 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Content-Length",
+							"value": "295"
+						}
+					],
+					"cookie": [],
+					"body": "[\n    {\n        \"id\": 3,\n        \"country\": \"Kazakhstan\",\n        \"bi\": \"Halyk bank\",\n        \"projects\": [\n            {\n                \"id\": 1,\n                \"year\": 2000,\n                \"number\": 3,\n                \"sum\": 500\n            },\n            {\n                \"id\": 2,\n                \"year\": 2001,\n                \"number\": 5,\n                \"sum\": 100\n            }\n        ]\n    },\n    {\n        \"id\": 4,\n        \"country\": \"Kazakhstan\",\n        \"bi\": \"Halyk bank\",\n        \"projects\": [\n            {\n                \"id\": 3,\n                \"year\": 2000,\n                \"number\": 3,\n                \"sum\": 500\n            },\n            {\n                \"id\": 4,\n                \"year\": 2001,\n                \"number\": 5,\n                \"sum\": 100\n            }\n        ]\n    }\n]"
+				}
+			]
+		},
+		{
+			"name": "Get by ID",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": ""
+				}
+			},
+			"response": [
+				{
+					"name": "Get by ID",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/entries/3",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"entries",
+								"3"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Mon, 29 Nov 2021 09:35:19 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Content-Length",
+							"value": "146"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"id\": 3,\n    \"country\": \"Kazakhstan\",\n    \"bi\": \"Halyk bank\",\n    \"projects\": [\n        {\n            \"id\": 1,\n            \"year\": 2000,\n            \"number\": 3,\n            \"sum\": 500\n        },\n        {\n            \"id\": 2,\n            \"year\": 2001,\n            \"number\": 5,\n            \"sum\": 100\n        }\n    ]\n}"
+				}
+			]
+		},
+		{
+			"name": "Post",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"country\": \"Kazakhstan\",\n    \"bi\": \"Halyk bank\",\n    \"projects\": [\n        {\n            \"year\": 2000,\n            \"number\": 3,\n            \"sum\": 500\n        },\n        {\n            \"year\": 2001,\n            \"number\": 5,\n            \"sum\": 100\n        }\n    ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/entries",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"entries"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Post",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"country\": \"Kazakhstan\",\n    \"bi\": \"Halyk bank\",\n    \"projects\": [\n        {\n            \"year\": 2000,\n            \"number\": 3,\n            \"sum\": 500\n        },\n        {\n            \"year\": 2001,\n            \"number\": 5,\n            \"sum\": 100\n        }\n    ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/entries",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"entries"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Mon, 29 Nov 2021 09:32:24 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Content-Length",
+							"value": "146"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"id\": 4,\n    \"country\": \"Kazakhstan\",\n    \"bi\": \"Halyk bank\",\n    \"projects\": [\n        {\n            \"id\": 3,\n            \"year\": 2000,\n            \"number\": 3,\n            \"sum\": 500\n        },\n        {\n            \"id\": 4,\n            \"year\": 2001,\n            \"number\": 5,\n            \"sum\": 100\n        }\n    ]\n}"
+				}
+			]
+		},
+		{
+			"name": "Update",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"country\": \"Kazakhstan\",\n    \"bi\": \"Halyk bank\",\n    \"projects\": [\n        {\n            \"year\": 2000,\n            \"number\": 3,\n            \"sum\": 500\n        },\n        {\n            \"year\": 2000,\n            \"number\": 5,\n            \"sum\": 100\n        }\n    ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/entries/3",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"entries",
+						"3"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Update",
+					"originalRequest": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"country\": \"Kazakhstan\",\n    \"bi\": \"Halyk bank\",\n    \"projects\": [\n        {\n            \"year\": 2000,\n            \"number\": 3,\n            \"sum\": 500\n        },\n        {\n            \"year\": 2000,\n            \"number\": 5,\n            \"sum\": 100\n        }\n    ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/entries/3",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"entries",
+								"3"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Mon, 29 Nov 2021 09:37:24 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Content-Length",
+							"value": "146"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"id\": 5,\n    \"country\": \"Kazakhstan\",\n    \"bi\": \"Halyk bank\",\n    \"projects\": [\n        {\n            \"id\": 5,\n            \"year\": 2000,\n            \"number\": 3,\n            \"sum\": 500\n        },\n        {\n            \"id\": 6,\n            \"year\": 2000,\n            \"number\": 5,\n            \"sum\": 100\n        }\n    ]\n}"
+				}
+			]
+		},
+		{
+			"name": "Delete",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/entries/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"entries",
+						"1"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
