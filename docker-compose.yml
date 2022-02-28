@@ -18,7 +18,7 @@ services:
     image: "postgres"
     container_name: bi_psql
     env_file:
-      - ./backend/dev.env
+      - ./backend/${ENV:-dev}.env
     healthcheck:
       test: /usr/bin/pg_isready
       interval: 5s
