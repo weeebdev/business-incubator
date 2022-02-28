@@ -28,7 +28,7 @@ type Config struct {
 
 func init() {
 	env, ok := os.LookupEnv("ENV")
-	if !ok {
+	if !ok || env == "" {
 		env = "dev"
 	}
 	viper.SetConfigFile(fmt.Sprintf("%s.env", env))
